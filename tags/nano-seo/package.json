@@ -1,0 +1,19 @@
+{
+  "name": "nano-seo",
+  "version": "0.1.0",
+  "description": "A framework-agnostic SEO validation component to analyze and ensure your web application's meta tags, OpenGraph data, and SEO elements are optimized.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "seo",
+    "search-engine-optimization",
+    "meta-tags",
+    "opengraph",
+    "developer-tools",
+    "framework-agnostic"
+  ],
+  "author": "aspecs",
+  "license": "ISC"
+}

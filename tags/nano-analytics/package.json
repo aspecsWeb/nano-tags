@@ -1,0 +1,18 @@
+{
+  "name": "nano-analytics",
+  "version": "0.1.0",
+  "description": "A lightweight and framework-agnostic analytics component to track user events, sessions, and engagement in your web applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "analytics",
+    "web-analytics",
+    "tracking",
+    "developer-tools",
+    "framework-agnostic"
+  ],
+  "author": "aspecs",
+  "license": "ISC"
+}
