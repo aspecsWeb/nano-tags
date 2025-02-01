@@ -13,5 +13,8 @@
     "framework-agnostic"
   ],
   "author": "aspecs",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.0"
+  }
 }

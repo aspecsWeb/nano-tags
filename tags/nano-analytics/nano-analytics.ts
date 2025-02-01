@@ -6,7 +6,7 @@ class NanoAnalytics extends HTMLElement {
 
   constructor() {
     super();
-    this.measurementId = this.getAttribute("measurement-id") || "";
+    this.measurementId = process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID || "";
     this.projectId = this.getAttribute("projectId");
     this.userId = this.getAttribute("userId");
     this.sessionId = localStorage.getItem('nanoAnalyticsSessionId') || crypto.randomUUID();
