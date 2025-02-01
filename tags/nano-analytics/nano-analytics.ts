@@ -1,43 +1,55 @@
 class NanoAnalytics extends HTMLElement {
-  userId: string | null;
+  private measurementId: string
 
   constructor() {
-    super();
-    // Retrieve the user ID from the element's attributes
-    this.userId = this.getAttribute("userId");
-
-    if (!this.userId) {
-      throw new Error("User ID is required");
-    }
+    super()
+    this.measurementId = this.getAttribute("measurement-id") || ""
   }
 
   connectedCallback() {
-    // Trigger the initial page view tracking
-    this.trackPageView();
-    // Listen for navigation events (back/forward button presses) to track page views
-    window.addEventListener("popstate", this.trackPageView.bind(this));
+    this.loadGoogleAnalytics()
+    this.trackPageView()
+    window.addEventListener("popstate", this.trackPageView.bind(this))
   }
 
   disconnectedCallback() {
-    // Remove the event listener when the component is removed from the DOM
-    window.removeEventListener("popstate", this.trackPageView.bind(this));
+    window.removeEventListener("popstate", this.trackPageView.bind(this))
   }
 
-  trackPageView() {
-    // Send a request to the analytics API with user ID, current URL, and timestamp
-    fetch("/api/tags/analytics", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: this.userId,
-        url: window.location.pathname,
-        timestamp: new Date().toISOString(),
-      }),
-    });
+  private loadGoogleAnalytics() {
+    const script = document.createElement("script")
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}`
+    script.async = true
+    document.head.appendChild(script)
+
+    script.onload = () => {
+      window.dataLayer = window.dataLayer || []
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args)
+      }
+      gtag("js", new Date())
+      gtag("config", this.measurementId)
+    }
+  }
+
+  private trackPageView() {
+    if (typeof window.gtag !== "undefined") {
+      window.gtag("event", "page_view", {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+      })
+    }
   }
 }
 
-// Define the custom web component as "nano-analytics"
-customElements.define("nano-analytics", NanoAnalytics);
+customElements.define("nano-analytics", NanoAnalytics)
+
+declare global {
+  interface Window {
+    dataLayer: any[]
+    gtag: (...args: any[]) => void
+  }
+}
+
+export default NanoAnalytics
