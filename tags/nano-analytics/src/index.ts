@@ -1,7 +1,6 @@
 // export * from './functions';
-// export * from './types';
+export * from './types';
 
-// index.ts
 interface WindowWithGA extends Window {
   gtag: (...args: any[]) => void;
   dataLayer: unknown[];
