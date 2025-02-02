@@ -1,12 +1,15 @@
 {
   "name": "nano-analytics",
-  "version": "0.3.0",
-  "description": "A lightweight and framework-agnostic analytics component to track user events, sessions, and engagement in your web applications.",
-  "main": "index.js",
+  "version": "0.4.0",
+  "description": "A lightweight and framework-agnostic analytics component to track user events and sessions in your web applications.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup"
   },
   "keywords": [
+    "nanosights",
     "analytics",
     "web-analytics",
     "tracking",
@@ -15,7 +18,8 @@
   ],
   "author": "aspecs",
   "license": "ISC",
-  "files": [
-    "nano-analytics.ts"
-  ]
+  "devDependencies": {
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
 }

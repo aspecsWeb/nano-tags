@@ -1,3 +1,6 @@
+// export * from './functions';
+// export * from './types';
+
 class NanoAnalytics extends HTMLElement {
   private projectId: string | null;
   private userId: string | null;
@@ -58,4 +61,4 @@ class NanoAnalytics extends HTMLElement {
 
 customElements.define("nano-analytics", NanoAnalytics);
 
-export { NanoAnalytics };
+export default NanoAnalytics;
