@@ -16,6 +16,10 @@
     "developer-tools",
     "framework-agnostic"
   ],
+  "homepage": "https://www.nanosights.dev/docs",
+  "repository": {
+    "url": "https://github.com/aspecsWeb/nano-tags/"
+  },
   "author": "aspecs",
   "license": "ISC",
   "devDependencies": {

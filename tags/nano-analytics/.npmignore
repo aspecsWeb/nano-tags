@@ -1,4 +1,11 @@
 # Exclude node_modules and other unnecessary files
-node_modules
+/dist
+/node_modules
+
+.env
+
 *.log
 *.md
+
+tsconfig.json
+tsup.config.ts
