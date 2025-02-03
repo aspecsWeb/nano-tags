@@ -1,58 +1,41 @@
 // export * from './functions';
 export * from './types';
 
+// Interface to extend the Window object if needed
 interface WindowWithGA extends Window {
-  gtag: (...args: any[]) => void;
-  dataLayer: unknown[];
+  gtag?: (...args: any[]) => void;
+  dataLayer?: unknown[];
 }
 
+// Ensure 'window' is typed correctly
 declare const window: WindowWithGA;
 
 class NanoAnalytics extends HTMLElement {
   private projectId: string | null;
   private userId: string | null;
   private sessionId: string;
-  private gaMeasurementId: string | null;
 
   constructor() {
     super();
     this.projectId = this.getAttribute("projectId");
     this.userId = this.getAttribute("userId");
-    this.gaMeasurementId = this.getAttribute("gaMeasurementId");
     this.sessionId = localStorage.getItem("nanoAnalyticsSessionId") || crypto.randomUUID();
     localStorage.setItem("nanoAnalyticsSessionId", this.sessionId);
   }
 
   connectedCallback() {
-    if (this.gaMeasurementId) {
-      this.initializeGoogleAnalytics();
-    }
     this.trackPageView();
 
     // Listen for browser navigation changes
     window.addEventListener("popstate", this.trackPageView.bind(this));
 
-    // Listen for our custom event (TS now recognizes 'nanoAnalyticsEvent')
+    // Listen for our custom event
     window.addEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
   }
 
   disconnectedCallback() {
     window.removeEventListener("popstate", this.trackPageView.bind(this));
     window.removeEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
-  }
-
-  private initializeGoogleAnalytics() {
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.gaMeasurementId}`;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer.push(args);
-    };
-    window.gtag("js", new Date());
-    window.gtag("config", this.gaMeasurementId!, { send_page_view: false });
   }
 
   private trackPageView() {
@@ -64,7 +47,6 @@ class NanoAnalytics extends HTMLElement {
     };
 
     this.sendToApi(pageViewData);
-    this.sendToGoogleAnalytics(pageViewData);
   }
 
   private trackEvent(e: Event) {
@@ -76,10 +58,9 @@ class NanoAnalytics extends HTMLElement {
     };
 
     this.sendToApi(eventData);
-    this.sendToGoogleAnalytics(eventData);
   }
 
-  private sendToApi(data: any) {
+  private sendToApi(data: Record<string, unknown>) {
     fetch("/api/tags/analytics", {
       method: "POST",
       headers: {
@@ -94,24 +75,6 @@ class NanoAnalytics extends HTMLElement {
         ...data,
       }),
     });
-  }
-
-  private sendToGoogleAnalytics(data: any) {
-    if (this.gaMeasurementId && window.gtag) {
-      if (data.eventType === "page_view") {
-        window.gtag("event", "page_view", {
-          page_title: data.page_title,
-          page_location: data.page_location,
-          page_path: data.page_path,
-          send_to: this.gaMeasurementId,
-        });
-      } else {
-        window.gtag("event", data.eventType, {
-          ...data.event_data,
-          send_to: this.gaMeasurementId,
-        });
-      }
-    }
   }
 }
 
