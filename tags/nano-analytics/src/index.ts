@@ -1,3 +1,7 @@
+/*============*/
+/*  index.ts  */
+/*============*/
+
 // export * from './functions';
 export * from './types';
 
@@ -17,8 +21,10 @@ class NanoAnalytics extends HTMLElement {
 
   constructor() {
     super();
+    // Retrieve attribute values from the custom element
     this.projectId = this.getAttribute("projectId");
     this.userId = this.getAttribute("userId");
+    // Use the stored sessionId or generate a new one
     this.sessionId = localStorage.getItem("nanoAnalyticsSessionId") || crypto.randomUUID();
     localStorage.setItem("nanoAnalyticsSessionId", this.sessionId);
   }
@@ -78,6 +84,7 @@ class NanoAnalytics extends HTMLElement {
   }
 }
 
+// Register the web component with a hyphenated tag name
 customElements.define("nano-analytics", NanoAnalytics);
 
 export { NanoAnalytics };
