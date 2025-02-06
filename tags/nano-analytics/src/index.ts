@@ -2,89 +2,99 @@
 /*  index.ts  */
 /*============*/
 
-// export * from './functions';
-export * from './types';
+import "./global.d.ts";
 
-// Interface to extend the Window object if needed
-interface WindowWithGA extends Window {
-  gtag?: (...args: any[]) => void;
-  dataLayer?: unknown[];
+let BaseHTMLElement: { new (): HTMLElement; prototype: HTMLElement };
+
+if (typeof window === "undefined" || typeof HTMLElement === "undefined") {
+  // SSR environment: provide a dummy class to satisfy references to HTMLElement.
+  class DummyHTMLElement {}
+  BaseHTMLElement = DummyHTMLElement as unknown as { new (): HTMLElement; prototype: HTMLElement };
+} else {
+  BaseHTMLElement = HTMLElement;
 }
 
-// Ensure 'window' is typed correctly
-declare const window: WindowWithGA;
-
-class NanoAnalytics extends HTMLElement {
+export class NanoAnalytics extends BaseHTMLElement {
   private projectId: string | null;
   private userId: string | null;
   private sessionId: string;
+  private boundTrackPageView: () => void;
+  private boundTrackEvent: (e: Event) => void;
 
   constructor() {
     super();
-    // Retrieve attribute values from the custom element
     this.projectId = this.getAttribute("projectId");
     this.userId = this.getAttribute("userId");
-    // Use the stored sessionId or generate a new one
-    this.sessionId = localStorage.getItem("nanoAnalyticsSessionId") || crypto.randomUUID();
-    localStorage.setItem("nanoAnalyticsSessionId", this.sessionId);
+
+    // Use localStorage and crypto.randomUUID if available
+    this.sessionId =
+      (typeof localStorage !== "undefined" && localStorage.getItem("nanoAnalyticsSessionId")) ||
+      (typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID()) ||
+      Math.random().toString(36).slice(2);
+
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("nanoAnalyticsSessionId", this.sessionId);
+    }
+
+    // Bind handlers for adding/removing event listeners
+    this.boundTrackPageView = this.trackPageView.bind(this);
+    this.boundTrackEvent = this.trackEvent.bind(this);
   }
 
   connectedCallback() {
-    this.trackPageView();
-
-    // Listen for browser navigation changes
-    window.addEventListener("popstate", this.trackPageView.bind(this));
-
-    // Listen for our custom event
-    window.addEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
+    if (typeof window !== "undefined") {
+      // Track once immediately and listen to changes on the client
+      this.trackPageView();
+      window.addEventListener("popstate", this.boundTrackPageView);
+      window.addEventListener("nanoAnalyticsEvent", this.boundTrackEvent as EventListener);
+    }
   }
 
   disconnectedCallback() {
-    window.removeEventListener("popstate", this.trackPageView.bind(this));
-    window.removeEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
+    if (typeof window !== "undefined") {
+      window.removeEventListener("popstate", this.boundTrackPageView);
+      window.removeEventListener("nanoAnalyticsEvent", this.boundTrackEvent as EventListener);
+    }
   }
 
   private trackPageView() {
     const pageViewData = {
       eventType: "page_view",
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: window.location.pathname,
+      page_title: typeof document !== "undefined" ? document.title : "",
+      page_location: typeof window !== "undefined" ? window.location.href : "",
+      page_path: typeof window !== "undefined" ? window.location.pathname : "",
     };
-
     this.sendToApi(pageViewData);
   }
 
   private trackEvent(e: Event) {
-    // Cast the generic Event to our CustomEvent
     const customEvent = e as CustomEvent<{ name: string; data: unknown }>;
     const eventData = {
       eventType: customEvent.detail.name,
       event_data: customEvent.detail.data,
     };
-
     this.sendToApi(eventData);
   }
 
   private sendToApi(data: Record<string, unknown>) {
-    fetch("/api/tags/analytics", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        projectId: this.projectId,
-        sessionId: this.sessionId,
-        userId: this.userId,
-        userAgent: navigator.userAgent,
-        referrer: document.referrer,
-        ...data,
-      }),
-    });
+    if (typeof fetch !== "undefined") {
+      fetch("https://www.nanosights.dev/api/tags/analytics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectId: this.projectId,
+          sessionId: this.sessionId,
+          userId: this.userId,
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+          referrer: typeof document !== "undefined" ? document.referrer : "",
+          ...data,
+        }),
+      });
+    }
   }
 }
 
-// Register the web component with a hyphenated tag name
-customElements.define("nano-analytics", NanoAnalytics);
-
-export { NanoAnalytics };
+// Register the custom element if and only if in a browser environment.
+if (typeof window !== "undefined" && window.customElements) {
+  customElements.define("nano-analytics", NanoAnalytics);
+}
