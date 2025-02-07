@@ -15,7 +15,7 @@ if (typeof window === "undefined" || typeof HTMLElement === "undefined") {
 }
 
 export class NanoAnalytics extends BaseHTMLElement {
-  private projectId: string | null;
+  private projectKey: string | null;
   private userId: string | null;
   private sessionId: string;
   private boundTrackPageView: () => void;
@@ -23,7 +23,7 @@ export class NanoAnalytics extends BaseHTMLElement {
 
   constructor() {
     super();
-    this.projectId = this.getAttribute("projectId");
+    this.projectKey = this.getAttribute("projectKey");
     this.userId = this.getAttribute("userId");
 
     // Use localStorage and crypto.randomUUID if available
@@ -82,7 +82,7 @@ export class NanoAnalytics extends BaseHTMLElement {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          projectId: this.projectId,
+          projectKey: this.projectKey,
           sessionId: this.sessionId,
           userId: this.userId,
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
@@ -94,7 +94,7 @@ export class NanoAnalytics extends BaseHTMLElement {
   }
 }
 
-// Register the custom element if and only if in a browser environment.
+// Register the custom element if in a browser environment.
 if (typeof window !== "undefined" && window.customElements) {
   customElements.define("nano-analytics", NanoAnalytics);
 }
