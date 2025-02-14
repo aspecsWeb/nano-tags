@@ -1,84 +1,81 @@
-# Turborepo starter
+# Project Name
 
-This is an official starter Turborepo.
+## Table of Contents
 
-## Using this example
+1. [Description](#description)
+2. [Developers](#developers)
+3. [Technologies Used](#technologies-used)
+4. [Hosting & Deployment](#hosting--deployment)
+5. [Expenses & Budget](#expenses--budget)
+6. [Installation & Setup](#installation--setup)
+7. [License](#license)
+8. [Contact](#contact)
 
-Run the following command:
+## Description
 
-```sh
-npx create-turbo@latest
-```
+This project contains the nano-tags for the NanoSights.dev SaaS platform designed to provide seamless integration of web analytics, speed insights, SEO performance checks, and Stripe analytics into any web application.
 
-## What's inside?
+## Developers
 
-This Turborepo includes the following packages/apps:
+- **[Paul Pietzko]** - Project Manager, Developer, Publisher
+- (Add more as needed)
 
-### Apps and Packages
+## Technologies Used
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+List all technologies, frameworks, and tools used in the project, such as:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Dashboard
+- [Git](https://github.com/aspecsWeb/nanosights)
 
-### Utilities
+### NanoTags
+- [Git](https://github.com/aspecsWeb/nano-tags)
+- Programming Languages: TypeScript
+- Build Tools: Turborepo, Webpack
+- Published On: NPM
 
-This Turborepo has some additional tools already setup for you:
+## Hosting & Deployment
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- **Hosting Provider**: AWS, Vercel, Netlify, etc.
+- **Domain Name**: example.com (if applicable)
+- **Deployment Process**: Briefly describe how the project is deployed (e.g., CI/CD pipelines, manual deployment, etc.)
 
-### Build
+## Expenses & Budget
 
-To build all apps and packages, run the following command:
+List any associated costs for running the project, such as:
 
-```
-cd my-turborepo
-pnpm build
-```
+- **Domain**: -
+- **Hosting**: -
+- **APIs & Services**: -
+- **Other Costs**: -
 
-### Develop
+## Installation & Setup
 
-To develop all apps and packages, run the following command:
+Provide steps for setting up the project locally:
 
-```
-cd my-turborepo
-pnpm dev
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/aspecsWeb/nano-tags.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd nano-tags
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+4. Symlink locally ([Docs](https://docs.npmjs.com/cli/v9/commands/npm-link)):
+   ```sh
+   npm link
+   ```
 
-### Remote Caching
+## License
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+This project is licensed under the [Proprietary License](LICENSE). All rights reserved. Unauthorized copying, distribution, or modification of this project, via any medium, is strictly prohibited.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Contact
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Provide contact details for support or inquiries:
 
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- Email: [paul.pietzko@icloud.com](mailto:paul.pietzko@icloud.com)
+- Twitter: @paulpietzko
