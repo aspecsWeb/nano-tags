@@ -78,7 +78,7 @@ export class NanoAnalytics extends BaseHTMLElement {
 
   private sendToApi(data: Record<string, unknown>) {
     if (typeof fetch !== "undefined") {
-      fetch("https://www.nanosights.dev/api/tags/analytics", {
+      fetch("http://localhost:3000/api/tags/analytics", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

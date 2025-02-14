@@ -1,19 +1,29 @@
 {
   "name": "nano-seo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A framework-agnostic SEO validation component to analyze and ensure your web application's meta tags, OpenGraph data, and SEO elements are optimized.",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup"
   },
   "keywords": [
+    "nanosights",
     "seo",
-    "search-engine-optimization",
     "meta-tags",
-    "opengraph",
+    "search-engine-optimization",
     "developer-tools",
     "framework-agnostic"
   ],
+  "homepage": "https://www.nanosights.dev/docs",
+  "repository": {
+    "url": "https://github.com/aspecsWeb/nano-tags/"
+  },
   "author": "aspecs",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
 }
