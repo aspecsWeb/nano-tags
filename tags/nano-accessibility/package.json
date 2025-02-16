@@ -1,7 +1,7 @@
 {
-  "name": "nano-stripe",
-  "version": "0.2.0",
-  "description": "A lightweight and framework-agnostic strpe component to track payments and conversion.",
+  "name": "nano-accessibility",
+  "version": "0.1.0",
+  "description": "A lightweight and framework-agnostic accessibility component to track and improve web accessibility.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,9 +10,9 @@
   },
   "keywords": [
     "nanosights",
-    "stipe",
-    "tracking",
-    "conversion",
+    "accessibility",
+    "a11y",
+    "web-accessibility",
     "developer-tools",
     "framework-agnostic"
   ],
