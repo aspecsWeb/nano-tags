@@ -1,7 +1,7 @@
 {
-  "name": "nano-stripe",
-  "version": "0.2.0",
-  "description": "A lightweight and framework-agnostic stripe component to track payments and conversion.",
+  "name": "nano-custom",
+  "version": "0.0.1",
+  "description": "A lightweight and framework-agnostic NanoSights.dev component to track custom events.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,9 +10,9 @@
   },
   "keywords": [
     "nanosights",
-    "stipe",
+    "custom events",
     "tracking",
-    "conversion",
+    "developer first",
     "developer-tools",
     "framework-agnostic"
   ],
