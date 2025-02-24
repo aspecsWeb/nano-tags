@@ -2,7 +2,7 @@
 /*  index.ts  */
 /*============*/
 
-import "./global.js";
+import "./global.d.ts";
 
 let BaseHTMLElement: { new (): HTMLElement; prototype: HTMLElement };
 
