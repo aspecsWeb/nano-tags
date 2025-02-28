@@ -5,7 +5,7 @@
 /* Global type declarations to allow TypeScript and JSX to recognize <nano-analytics> */
 /* without requiring framework-specific type dependencies.*/
 
- interface HTMLNanoAnalyticsElement extends HTMLElement {
+interface HTMLNanoAnalyticsElement extends HTMLElement {
   projectKey?: string;
   userId?: string;
 }
@@ -16,7 +16,7 @@ interface HTMLElementTagNameMap {
 
 declare namespace JSX {
   interface IntrinsicElements {
-    "nano-analytics": any;
+    "nano-analytics": Partial<HTMLNanoAnalyticsElement>;
   }
 }
 
