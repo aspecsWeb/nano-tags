@@ -5,9 +5,9 @@
 /* Global type declarations to allow TypeScript and JSX to recognize <nano-insights> */
 /* without requiring framework-specific type dependencies.*/
 
- interface HTMLNanoInsightsElement extends HTMLElement {
+interface HTMLNanoInsightsElement extends HTMLElement {
   projectKey?: string;
-  userId?: string;
+  siteUrl?: string;
 }
 
 interface HTMLElementTagNameMap {
@@ -16,7 +16,7 @@ interface HTMLElementTagNameMap {
 
 declare namespace JSX {
   interface IntrinsicElements {
-    "nano-insights": any;
+    "nano-insights": Partial<HTMLNanoInsightsElement>;
   }
 }
 

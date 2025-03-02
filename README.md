@@ -24,6 +24,8 @@ This project contains the nano-tags for the NanoSights.dev SaaS platform designe
 
 List all technologies, frameworks, and tools used in the project, such as:
 
+- Lit
+
 ### Dashboard
 - [Git](https://github.com/aspecsWeb/nanosights)
 

@@ -2,41 +2,41 @@
 /*  index.ts  */
 /*============*/
 
-import "./global.d.ts";
+import { LitElement, html } from "lit";
+import { property, customElement } from "lit/decorators.js";
+import "./global.d";
 
-let BaseHTMLElement: { new (): HTMLElement; prototype: HTMLElement };
+@customElement("nano-insights")
+export class NanoInsights extends LitElement {
+  @property({ type: String }) projectKey: string | null = "";
+  @property({ type: String }) siteUrl: string | null = "";
 
-if (typeof window === "undefined" || typeof HTMLElement === "undefined") {
-  // SSR environment: provide a dummy class to satisfy references to HTMLElement.
-  class DummyHTMLElement {}
-  BaseHTMLElement = DummyHTMLElement as unknown as { new (): HTMLElement; prototype: HTMLElement };
-} else {
-  BaseHTMLElement = HTMLElement;
-}
+  connectedCallback() {
+    super.connectedCallback();
+    this.fetchSpeedInsights();
+  }
 
-export class NanoInsights extends BaseHTMLElement {
-  private projectKey: string | null;
-  private userId: string | null;
-  private sessionId: string;
-
-  constructor() {
-    super();
-    this.projectKey = this.getAttribute("projectKey");
-    this.userId = this.getAttribute("userId");
-
-    // Use localStorage and crypto.randomUUID if available
-    this.sessionId =
-      (typeof localStorage !== "undefined" && localStorage.getItem("nanoInsightsSessionId")) ||
-      (typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID()) ||
-      Math.random().toString(36).slice(2);
-
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("nanoInsightsSessionId", this.sessionId);
+  private async fetchSpeedInsights() {
+    if (!this.projectKey || !this.siteUrl) {
+      console.error("NanoInsights: Missing projectKey or siteUrl");
+      return;
+    }
+    
+    try {
+      const response = await fetch("https://www.nanosights.dev/api/tags/insights", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projectKey: this.projectKey, siteUrl: this.siteUrl })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log("NanoInsights Data:", data);
+    } catch (error) {
+      console.error("Error fetching speed insights:", error);
     }
   }
-}
-
-// Register the custom element if in a browser environment.
-if (typeof window !== "undefined" && window.customElements) {
-  customElements.define("nano-insights", NanoInsights);
 }
