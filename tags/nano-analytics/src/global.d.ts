@@ -10,13 +10,14 @@ interface HTMLNanoAnalyticsElement extends HTMLElement {
   userId?: string;
 }
 
-interface HTMLElementTagNameMap {
-  "nano-analytics": HTMLNanoAnalyticsElement;
-}
-
-declare namespace JSX {
-  interface IntrinsicElements {
-    "nano-analytics": Partial<HTMLNanoAnalyticsElement>;
+declare global {
+  interface HTMLElementTagNameMap {
+    "nano-analytics": HTMLNanoAnalyticsElement;
+  }
+   namespace JSX {
+    interface IntrinsicElements {
+      "nano-analytics": HTMLNanoAnalyticsElement;
+    }
   }
 }
 

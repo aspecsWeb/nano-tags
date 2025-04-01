@@ -1,4 +1,8 @@
-import { LitElement, html } from "lit";
+/*=============*/
+/* index.ts    */
+/*=============*/
+
+import { LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import "./global.d";
 
