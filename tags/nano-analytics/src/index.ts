@@ -10,14 +10,17 @@ import "./global.d";
 export class NanoAnalytics extends LitElement {
   @property({ type: String }) projectKey: string | null = "";
   @property({ type: String }) userId: string | null = "";
-  
+
   private sessionId: string;
 
   constructor() {
     super();
     this.sessionId =
-      (typeof localStorage !== "undefined" && localStorage.getItem("nanoAnalyticsSessionId")) ||
-      (typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID()) ||
+      (typeof localStorage !== "undefined" &&
+        localStorage.getItem("nanoAnalyticsSessionId")) ||
+      (typeof crypto !== "undefined" &&
+        crypto.randomUUID &&
+        crypto.randomUUID()) ||
       Math.random().toString(36).slice(2);
 
     if (typeof localStorage !== "undefined") {
@@ -29,13 +32,19 @@ export class NanoAnalytics extends LitElement {
     super.connectedCallback();
     this.trackPageView();
     window.addEventListener("popstate", this.trackPageView.bind(this));
-    window.addEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
+    window.addEventListener(
+      "nanoAnalyticsEvent",
+      this.trackEvent.bind(this) as EventListener
+    );
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     window.removeEventListener("popstate", this.trackPageView.bind(this));
-    window.removeEventListener("nanoAnalyticsEvent", this.trackEvent.bind(this) as EventListener);
+    window.removeEventListener(
+      "nanoAnalyticsEvent",
+      this.trackEvent.bind(this) as EventListener
+    );
   }
 
   private trackPageView = () => {

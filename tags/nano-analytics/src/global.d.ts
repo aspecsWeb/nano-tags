@@ -14,7 +14,7 @@ declare global {
   interface HTMLElementTagNameMap {
     "nano-analytics": HTMLNanoAnalyticsElement;
   }
-   namespace JSX {
+  namespace JSX {
     interface IntrinsicElements {
       "nano-analytics": HTMLNanoAnalyticsElement;
     }

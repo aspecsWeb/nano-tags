@@ -8,6 +8,18 @@
   "scripts": {
     "build": "tsup"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/nano-analytics-react.mjs",
+      "require": "./dist/nano-analytics-react.js",
+      "types": "./dist/nano-analytics-react.d.ts"
+    }
+  },
   "keywords": [
     "nanosights",
     "analytics",
