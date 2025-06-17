@@ -8,8 +8,7 @@
 4. [Hosting & Deployment](#hosting--deployment)
 5. [Expenses & Budget](#expenses--budget)
 6. [Installation & Setup](#installation--setup)
-7. [License](#license)
-8. [Contact](#contact)
+7. [Contact](#contact)
 
 ## Description
 
@@ -70,10 +69,6 @@ Provide steps for setting up the project locally:
    ```sh
    npm link
    ```
-
-## License
-
-This project is licensed under the [Proprietary License](LICENSE). All rights reserved. Unauthorized copying, distribution, or modification of this project, via any medium, is strictly prohibited.
 
 ## Contact
 
