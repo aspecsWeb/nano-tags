@@ -31,23 +31,8 @@ List all technologies, frameworks, and tools used in the project, such as:
 ### NanoTags
 - [Git](https://github.com/aspecsWeb/nano-tags)
 - Programming Languages: TypeScript
-- Build Tools: Turborepo, Webpack
+- Build Tools: `npm run build`
 - Published On: NPM
-
-## Hosting & Deployment
-
-- **Hosting Provider**: AWS, Vercel, Netlify, etc.
-- **Domain Name**: example.com (if applicable)
-- **Deployment Process**: Briefly describe how the project is deployed (e.g., CI/CD pipelines, manual deployment, etc.)
-
-## Expenses & Budget
-
-List any associated costs for running the project, such as:
-
-- **Domain**: -
-- **Hosting**: -
-- **APIs & Services**: -
-- **Other Costs**: -
 
 ## Installation & Setup
 
@@ -65,7 +50,7 @@ Provide steps for setting up the project locally:
    ```sh
    npm install
    ```
-4. Symlink locally ([Docs](https://docs.npmjs.com/cli/v9/commands/npm-link)):
+4. Develop locally ([Docs](https://docs.npmjs.com/cli/v9/commands/npm-link)):
    ```sh
    npm link
    ```
