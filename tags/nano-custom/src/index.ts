@@ -97,7 +97,7 @@ export class NanoCustom extends LitElement {
       return;
     }
 
-    fetch("https://www.nanosights.dev/api/tags/custom", {
+    fetch("https://www.nanosights.dev/api/tag/custom", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

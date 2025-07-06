@@ -221,7 +221,7 @@ export class NanoInsights extends LitElement {
   }
 
   private sendToApi(data: Record<string, unknown>) {
-    fetch("https://www.nanosights.dev/api/tags/insights", {
+    fetch("https://www.nanosights.dev/api/tag/insights", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
