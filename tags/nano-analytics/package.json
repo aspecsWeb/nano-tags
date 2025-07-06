@@ -1,24 +1,12 @@
 {
   "name": "nano-analytics",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A lightweight and framework-agnostic analytics component to track user events and sessions in your web applications.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./react": {
-      "import": "./dist/nano-analytics-react.mjs",
-      "require": "./dist/nano-analytics-react.js",
-      "types": "./dist/nano-analytics-react.d.ts"
-    }
   },
   "keywords": [
     "nanosights",
