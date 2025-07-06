@@ -65,7 +65,7 @@ export class NanoAnalytics extends LitElement {
   };
 
   private sendToApi(data: Record<string, unknown>) {
-    fetch("https://www.nanosights.dev/api/tag/analytics", {
+    fetch("https://www.nanosights.dev/api/tags/analytics", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
