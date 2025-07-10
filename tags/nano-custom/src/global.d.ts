@@ -5,6 +5,8 @@
 /* Global type declarations to allow TypeScript and JSX to recognize <nano-custom> */
 /* without requiring framework-specific type dependencies.*/
 
+import { track } from "./track";
+
 interface HTMLNanoCustomElement extends HTMLElement {
   projectKey?: string;
   userId?: string;
@@ -18,6 +20,12 @@ declare global {
     interface IntrinsicElements {
       "nano-custom": HTMLNanoCustomElement;
     }
+  }
+  interface Window {
+    nanoCustom: {
+      trackEvent: (eventName: string, eventData?: Record<string, any>) => void;
+    };
+    track: typeof track;
   }
 }
 

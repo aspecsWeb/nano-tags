@@ -5,12 +5,24 @@
 import { LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import "./global.d";
+import { track } from "./track";
+
+export { track };
 
 /**
  * The nano-custom tag enables custom event tracking by exposing a global trackEvent method
  * and listening for custom events on the window. Events are sent to the NanoSights API
  * along with projectKey, userId, and sessionId for analytics purposes.
  */
+
+// Assign `track` to window global for browser environments
+if (typeof window !== "undefined") {
+  // Attach the track function to the window object
+  // (do not overwrite if already set)
+  if (!window.track) {
+    window.track = track;
+  }
+}
 
 @customElement("nano-custom")
 export class NanoCustom extends LitElement {
@@ -33,7 +45,6 @@ export class NanoCustom extends LitElement {
       localStorage.setItem("nanoCustomSessionId", this.sessionId);
     }
 
-    // Make trackEvent available globally
     window.nanoCustom = {
       trackEvent: this.trackEvent.bind(this),
     };
@@ -41,10 +52,9 @@ export class NanoCustom extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    // Listen for custom events
     window.addEventListener(
       "nanoCustomEvent",
-      this.handleCustomEvent.bind(this) as EventListener
+      this.handleCustomEvent as EventListener
     );
   }
 
@@ -52,7 +62,7 @@ export class NanoCustom extends LitElement {
     super.disconnectedCallback();
     window.removeEventListener(
       "nanoCustomEvent",
-      this.handleCustomEvent.bind(this) as EventListener
+      this.handleCustomEvent as EventListener
     );
   }
 
@@ -60,34 +70,16 @@ export class NanoCustom extends LitElement {
     const customEvent = e as CustomEvent<{
       eventName: string;
       eventData?: Record<string, any>;
-      category?: string;
-      label?: string;
-      value?: number;
     }>;
 
-    this.trackEvent(
-      customEvent.detail.eventName,
-      customEvent.detail.eventData,
-      customEvent.detail.category,
-      customEvent.detail.label,
-      customEvent.detail.value
-    );
+    this.trackEvent(customEvent.detail.eventName, customEvent.detail.eventData);
   };
 
-  // Method exposed to users for programmatic event tracking
-  trackEvent(
-    eventName: string,
-    eventData?: Record<string, any>,
-    category?: string,
-    label?: string,
-    value?: number
-  ) {
+  // Exposed for global API
+  trackEvent(eventName: string, eventData?: Record<string, any>) {
     this.sendToApi({
       event_name: eventName,
       event_data: eventData || {},
-      event_category: category || "custom",
-      event_label: label,
-      event_value: value,
     });
   }
 
@@ -113,20 +105,5 @@ export class NanoCustom extends LitElement {
         ...data,
       }),
     });
-  }
-}
-
-// Declare global namespace for TypeScript
-declare global {
-  interface Window {
-    nanoCustom: {
-      trackEvent: (
-        eventName: string,
-        eventData?: Record<string, any>,
-        category?: string,
-        label?: string,
-        value?: number
-      ) => void;
-    };
   }
 }
